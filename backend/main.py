@@ -14,11 +14,15 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["https://aigua.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+def root():
+    return {"message": "AIgua API is alive 💧"}
 
 @app.post("/api/analyze")
 def analyze_water(sample: WaterSample = Body(..., example={

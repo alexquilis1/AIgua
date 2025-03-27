@@ -21,7 +21,7 @@ function App() {
         setResult(null);
 
         try {
-            const response = await fetch("http://localhost:52345/api/analyze", {
+            const response = await fetch("https://aigua.up.railway.app/api/analyze", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
