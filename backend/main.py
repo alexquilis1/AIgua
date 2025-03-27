@@ -32,3 +32,10 @@ def analyze_water(sample: WaterSample = Body(..., example={
     usage = parameters.pop("usage")
     report = analyze_water_dual(parameters, usage)
     return report
+
+if __name__ == "__main__":
+    import uvicorn
+    import os
+
+    port = int(os.environ.get("PORT", 8000))  # Railway establece PORT automáticamente
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
