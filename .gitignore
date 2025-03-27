@@ -19,7 +19,6 @@ lerna-debug.log*
 /backend/kb/
 /backend/agent_logic.ipynb
 /backend/vectorstore.db/
-/backend/faiss_index/
 
 # --- Editor config files ---
 .vscode/*
