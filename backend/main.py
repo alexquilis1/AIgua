@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 from models import WaterSample
-from waterbuddy import analyze_water_dual
+from aigua import analyze_water_dual
 from dotenv import load_dotenv
 
 load_dotenv()
