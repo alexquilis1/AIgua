@@ -1,32 +1,72 @@
-prompt_template = """
-Hello there! 👋 I'm AIgua 💧—your friendly water quality companion.
+# waterbuddy.py
 
-I'm here to help you make sense of your water test results in a clear, simple, and human way. Whether you're using the water for drinking, washing, irrigation, or anything else, I've got your back. Let's take a look together! 🌊
+# Imports específicos desde otros módulos
+from rules import (
+    internal_rule_evaluation,
+    needs_external_info,
+    query_internal_kb,
+    parameter_rules
+)
+from rag import query_rag
+from langchain_ibm import WatsonxLLM
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+from credentials import credentials, project_id
+from prompt import prompt_template
 
-Based on the data you've provided, I'll:
-1. Explain what each parameter means in everyday language.
-2. Evaluate whether the water is safe for your intended use.
-3. If it's not safe, I'll break down the potential risks (like irritation or health concerns).
-4. Suggest practical and affordable treatment options you can follow step by step.
-5. Raise a warning if any danger is detected and recommend how to proceed safely.
-6. Keep it friendly, easy to understand, and useful for everyone.
-7. End with a gentle reminder to stay safe and look after your well-being.
+# Configuración del modelo IBM WatsonX LLM
+watsonx_llm = WatsonxLLM(
+    model_id="ibm/granite-3-8b-instruct",
+    url=credentials['url'],
+    apikey=credentials['apikey'],
+    project_id=project_id,
+    params={"temperature": 0.2, "max_new_tokens": 1024}
+)
 
-🔬 **Water Test Results**:
-- pH: {pH}
-- Total Dissolved Solids (TDS): {TDS} ppm
-- Turbidity: {turbidity} NTU
-- Free Chlorine: {free_chlorine} mg/L
+# Creación del prompt con LangChain
+prompt = PromptTemplate(
+    input_variables=["pH", "TDS", "turbidity", "free_chlorine", "usage"],
+    template=prompt_template
+)
 
-💡 **Intended Use**: {usage}
+# Chain del modelo LLM para generar respuestas
+waterbuddy_chain = LLMChain(llm=watsonx_llm, prompt=prompt, verbose=True)
 
-🧠 **Instructions for the model**:  
-Please begin your response by greeting the user and introducing yourself as AIgua 💧.  
-Then, proceed with the full analysis based on the values above.  
-At the end of your response, always include:
+# Lógica principal: análisis dual interno y externo (RAG)
+def analyze_water_dual(parameters: dict, usage: str):
+    internal_results = internal_rule_evaluation(parameters)
+    external_needed = needs_external_info(internal_results)
 
-- ⚠️ A **disclaimer** clearly stating the AI nature of this advice and encouraging cautious action if danger is suspected.  
-- 💙 A **thank you message** such as: “Thanks for using AIgua — stay safe, stay informed, and take care!”
+    external_info = {}
+    rag_info = {}
 
-Do not skip these parts.
-"""
+    if external_needed:
+        for param, value in parameters.items():
+            if param in parameter_rules and internal_results[param]["status"] in ("acceptable", "risky"):
+                # Información interna adicional
+                external_info[param] = query_internal_kb(param)
+
+                # Consultar información externa (RAG)
+                query_text = (
+                    f"Explain the health risks and recommended treatments "
+                    f"related to {param} in water."
+                )
+                rag_info[param] = query_rag(query_text, k=2)
+
+    # Construcción del reporte final integrando toda la información obtenida
+    final_report = waterbuddy_chain.run({
+        "pH": parameters.get("pH"),
+        "TDS": parameters.get("TDS"),
+        "turbidity": parameters.get("turbidity"),
+        "free_chlorine": parameters.get("free_chlorine"),
+        "usage": usage
+    })
+
+    # Devuelve el reporte completo generado por el modelo LLM,
+    # complementado si lo deseas con info interna y externa (opcional).
+    return {
+        "analysis": final_report,
+        "internal_results": internal_results,
+        "external_info": external_info,
+        "rag_info": rag_info
+    }
