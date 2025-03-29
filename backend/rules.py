@@ -4,98 +4,74 @@ parameter_rules = {
     "pH": {
         "ideal_range": (6.5, 8.5),
         "acceptable_range": (6.0, 9.0),
-        "labels": {
-            "ideal": "Ideal",
-            "acceptable": "Acceptable but not ideal",
-            "unsafe": "Unsafe"
-        }
+        "risk": "pH out of ideal range may indicate acidic or alkaline contamination, potentially causing corrosion or taste issues.",
+        "treatment": "Adjust pH using appropriate chemicals (lime to raise or acidifiers to lower)."
     },
     "TDS": {
         "ideal_range": (0, 500),
         "acceptable_range": (0, 1000),
-        "labels": {
-            "ideal": "Ideal",
-            "acceptable": "Moderate but acceptable",
-            "unsafe": "Too high – may indicate contamination"
-        }
+        "risk": "High TDS may indicate contamination from salts or metals, affecting taste and long-term health.",
+        "treatment": "Use reverse osmosis or deionization filters to lower TDS."
     },
     "turbidity": {
         "ideal_range": (0, 1),
         "acceptable_range": (0, 5),
-        "labels": {
-            "ideal": "Crystal clear",
-            "acceptable": "Slightly cloudy, still acceptable",
-            "unsafe": "Too cloudy – risk of pathogen protection"
-        }
+        "risk": "Elevated turbidity can shield pathogens from disinfection and indicate particulate contamination.",
+        "treatment": "Implement sedimentation and advanced filtration."
     },
     "free_chlorine": {
         "ideal_range": (0.2, 1.0),
         "acceptable_range": (0.1, 2.0),
-        "labels": {
-            "ideal": "Effective disinfection",
-            "acceptable": "Watch closely",
-            "unsafe": "Too low/high – possible risk"
-        }
+        "risk": "Insufficient chlorine may not disinfect properly, while too much can be harmful and affect taste.",
+        "treatment": "Adjust chlorine dosing or use activated carbon filters to remove excess chlorine."
     }
 }
 
 knowledge_base = {
     "pH": {
         "explanation": (
-            "pH indicates how acidic or alkaline the water is. Ideal drinking water is close to neutral. "
-            "Deviations may affect taste, plumbing, and health over time."
+            "pH indicates the balance between acidity and alkalinity in water. Even within the acceptable range, "
+            "slight deviations can affect taste and long-term water quality. Continuous monitoring is recommended."
         ),
         "risks": [
-            "Corrosion of pipes or equipment",
             "Taste alterations",
-            "Skin or eye irritation (if used for washing)"
+            "Possible long-term health implications if levels remain borderline"
         ],
-        "treatment": {
-            "raise": "Use lime or sodium carbonate to increase pH.",
-            "lower": "Use acidifiers like citric acid or CO₂ injection to decrease pH."
-        }
+        "treatment": "Consider adjusting pH using appropriate chemicals if it consistently hovers near the limits."
     },
     "TDS": {
         "explanation": (
-            "TDS (Total Dissolved Solids) measures minerals, salts, and metals in water. Higher levels can affect taste "
-            "and may signal contamination, especially in untreated water."
+            "Total Dissolved Solids (TDS) measure the concentration of dissolved substances in water. "
+            "While a moderate level is normal, values near the high end of the acceptable range may affect taste "
+            "and indicate potential contamination."
         ),
         "risks": [
-            "Bitter or metallic taste",
-            "Possible presence of harmful salts or heavy metals",
-            "Build-up in appliances"
+            "Altered taste",
+            "Potential for contaminants if levels remain high"
         ],
-        "treatment": {
-            "general": "Use reverse osmosis, deionization, or distillation to reduce TDS."
-        }
+        "treatment": "Use filtration methods such as reverse osmosis if TDS levels are consistently high."
     },
     "turbidity": {
         "explanation": (
-            "Turbidity reflects the cloudiness of water due to suspended particles. It can reduce disinfection effectiveness "
-            "and be a sign of microbial or sediment contamination."
+            "Turbidity measures the clarity of water. Clear water is ideal, but higher turbidity, even if acceptable, "
+            "can hinder disinfection and may indicate particulate matter presence."
         ),
         "risks": [
-            "Microorganisms hidden in particles may survive treatment",
-            "Potential infection risk if used without further filtration"
+            "Reduced effectiveness of disinfection processes",
+            "Potential microbial growth if turbidity increases further"
         ],
-        "treatment": {
-            "general": "Use sedimentation followed by fine filtration (e.g., ceramic or membrane filters)."
-        }
+        "treatment": "Regular cleaning and maintenance of the water system can help reduce turbidity."
     },
     "free_chlorine": {
         "explanation": (
-            "Free chlorine keeps water disinfected and safe from microbes. Low levels mean disinfection may be insufficient, "
-            "while high levels may cause irritation or unpleasant taste."
+            "Free chlorine is crucial for disinfecting water. Maintaining optimal levels ensures effective disinfection; "
+            "levels that are too high or too low, even if acceptable, can cause taste issues or reduced disinfection."
         ),
         "risks": [
-            "Insufficient protection from bacteria if too low",
-            "Skin or eye irritation if too high",
-            "Bad taste or odor"
+            "Adverse taste if chlorine is too high",
+            "Insufficient disinfection if chlorine is too low"
         ],
-        "treatment": {
-            "increase": "Increase dosing using chlorine tablets or liquid bleach (in correct proportions).",
-            "decrease": "Use activated carbon filters or let water sit to allow chlorine to dissipate."
-        }
+        "treatment": "Monitor chlorine levels regularly and adjust dosing to maintain them within the optimal range."
     }
 }
 
