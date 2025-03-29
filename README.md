@@ -127,16 +127,20 @@ This project was developed as part of the **AI Agent Hackathon with IBM watsonx.
 ### 👥 Team
 
 - **Alex Quilis Vila** — Data Science & AI Logic  
-  [LinkedIn](https://www.linkedin.com/in/alexquiliz/)
+  [LinkedIn](https://www.linkedin.com/in/alex-quilis-vila/)
   
 - **Junjie Wu** — AI Integration & Frontend Development  
-  [LinkedIn](https://www.linkedin.com/in/junjiewu/)  
+  [LinkedIn](https://www.linkedin.com/in/junjie-wu-jj/)  
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License — see the [LICENSE](./LICENSE) file for details.
+This project is **not open-source** and is shared under a custom license.  
+You may use it for personal or educational purposes only, with proper attribution.  
+Commercial use, redistribution, or modification is **not allowed** without permission.
+
+See the [LICENSE](./LICENSE) file for full terms.
 
 ---
 
