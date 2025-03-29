@@ -6,7 +6,8 @@ import AnalyzeButton from "./components/AnalyzeButton";
 import { saveAnalysisToFirestore } from "./firebaseUtils";
 import type { SharedAnalysisData } from "./types/SharedAnalysisData";
 import { Timestamp } from "firebase/firestore";
-import Footer from "./components/Footer"; // 👈 Importamos el Footer
+import Footer from "./components/Footer";
+import AnalysisResult from "./components/AnalysisResult.tsx"; // 👈 Importamos el Footer
 
 function App() {
     const [parameters, setParameters] = useState<Record<string, number>>({});
@@ -132,12 +133,12 @@ function App() {
                     )}
 
                     {result && (
-                        <div className="bg-white p-6 rounded-xl shadow-md shadow-blue-100 transition-all duration-200">
-                            <h2 className="text-xl font-semibold text-blue-900 mb-2">
+                        <>
+                            <h2 className="text-xl font-semibold text-blue-900 mb-2 text-center">
                                 💡 AIgua's Analysis
                             </h2>
-                            <p className="text-slate-700 whitespace-pre-wrap">{result}</p>
-                        </div>
+                            <AnalysisResult analysis={result} />
+                        </>
                     )}
                 </div>
             </main>
