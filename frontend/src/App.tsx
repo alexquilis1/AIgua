@@ -6,6 +6,7 @@ import AnalyzeButton from "./components/AnalyzeButton";
 import { saveAnalysisToFirestore } from "./firebaseUtils";
 import type { SharedAnalysisData } from "./types/SharedAnalysisData";
 import { Timestamp } from "firebase/firestore";
+import Footer from "./components/Footer"; // 👈 Importamos el Footer
 
 function App() {
     const [parameters, setParameters] = useState<Record<string, number>>({});
@@ -32,7 +33,7 @@ function App() {
             const data = await response.json();
             const { analysis, internal_results } = data;
 
-            setResult(analysis); // Lo muestras en el frontend principal
+            setResult(analysis);
 
             if (share && navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -47,9 +48,8 @@ function App() {
                                 lng: longitude,
                             },
                             internal_results,
-                            timestamp: Timestamp.now(), // 🔥 aquí se añade
+                            timestamp: Timestamp.now(),
                         };
-
 
                         await saveAnalysisToFirestore(dataToShare);
                     },
@@ -66,74 +66,83 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen bg-blue-50 py-10 px-4">
-            <div className="max-w-2xl mx-auto space-y-8">
-                <h1 className="text-4xl font-bold text-center text-blue-900 drop-shadow-sm">
-                    AIgua 💧
-                </h1>
+        <div className="min-h-screen bg-blue-50 flex flex-col justify-between">
+            <main className="py-10 px-4 flex-grow">
+                <div className="max-w-2xl mx-auto space-y-8">
+                    <h1 className="text-4xl font-bold text-center text-blue-900 drop-shadow-sm">
+                        AIgua 💧
+                    </h1>
+                    <p className="text-center text-slate-600 text-base max-w-md mx-auto mt-2">
+                        Understand your water in seconds — AI-powered analysis, health risks & treatment tips for every drop.
+                    </p>
 
-                <ParameterInput onChange={setParameters} />
-                <UsageInput onChange={setUsage} />
+                    <ParameterInput onChange={setParameters} />
+                    <UsageInput onChange={setUsage} />
 
-                <div className="text-center">
-                    <AnalyzeButton onClick={handleAnalyze} />
-                </div>
+                    <div className="text-center">
+                        <AnalyzeButton onClick={handleAnalyze} />
+                    </div>
 
-                <div className="text-center">
-                    <label className="inline-flex items-center space-x-2 mt-4 text-sm text-slate-700">
-                        <input
-                            type="checkbox"
-                            checked={share}
-                            onChange={() => setShare(!share)}
-                            className="accent-blue-600"
-                        />
-                        <span>Share this analysis anonymously to help others</span>
-                    </label>
-                </div>
+                    <div className="text-center">
+                        <label className="inline-flex items-center space-x-2 mt-4 text-sm text-slate-700">
+                            <input
+                                type="checkbox"
+                                checked={share}
+                                onChange={() => setShare(!share)}
+                                className="accent-blue-600"
+                                aria-checked={share}
+                                aria-label="Share this analysis anonymously"
+                            />
+                            <span>Share this analysis anonymously to help others</span>
+                        </label>
+                    </div>
 
-                <div className="text-center">
-                    <Link
-                        to="/map"
-                        className="text-blue-700 underline hover:text-blue-900 text-sm"
-                    >
-                        🌍 View Community Map →
-                    </Link>
-                </div>
-
-                {loading && (
-                    <div className="flex justify-center items-center space-x-3 text-blue-800 font-medium mt-6">
-                        <svg
-                            className="animate-spin h-6 w-6 text-sky-500"
-                            viewBox="0 0 24 24"
-                            fill="none"
+                    <div className="text-center">
+                        <Link
+                            to="/map"
+                            className="text-blue-700 underline hover:text-blue-900 text-sm"
                         >
-                            <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                            />
-                            <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8v8z"
-                            />
-                        </svg>
-                        <span>Analyzing water sample…</span>
+                            🌍 View Community Map →
+                        </Link>
                     </div>
-                )}
 
-                {result && (
-                    <div className="bg-white p-6 rounded-xl shadow-md shadow-blue-100 transition-all duration-200">
-                        <h2 className="text-xl font-semibold text-blue-900 mb-2">
-                            💡 AIgua's Analysis
-                        </h2>
-                        <p className="text-slate-700 whitespace-pre-wrap">{result}</p>
-                    </div>
-                )}
-            </div>
+                    {loading && (
+                        <div className="flex justify-center items-center space-x-3 text-blue-800 font-medium mt-6">
+                            <svg
+                                className="animate-spin h-6 w-6 text-sky-500"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                />
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v8z"
+                                />
+                            </svg>
+                            <span>Analyzing water sample…</span>
+                        </div>
+                    )}
+
+                    {result && (
+                        <div className="bg-white p-6 rounded-xl shadow-md shadow-blue-100 transition-all duration-200">
+                            <h2 className="text-xl font-semibold text-blue-900 mb-2">
+                                💡 AIgua's Analysis
+                            </h2>
+                            <p className="text-slate-700 whitespace-pre-wrap">{result}</p>
+                        </div>
+                    )}
+                </div>
+            </main>
+
+            <Footer /> {/* 👈 Aquí añadimos el Footer */}
         </div>
     );
 }

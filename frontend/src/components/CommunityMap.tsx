@@ -32,7 +32,9 @@ const getStatusEmoji = (status: string) => {
 
 const CommunityMap = () => {
     const [analyses, setAnalyses] = useState<SharedAnalysisWithId[]>([]);
-    const center: [number, number] = [40.0, -3.5];
+    const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+
+    const fallbackCenter: [number, number] = [40.0, -3.5]; // España por defecto
 
     useEffect(() => {
         (async () => {
@@ -49,51 +51,77 @@ const CommunityMap = () => {
         })();
     }, []);
 
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setUserLocation([latitude, longitude]);
+                },
+                (error) => {
+                    console.warn("Geolocation not available or denied:", error);
+                    setUserLocation(fallbackCenter);
+                }
+            );
+        } else {
+            setUserLocation(fallbackCenter);
+        }
+    }, []);
+
     return (
         <div className="rounded-xl overflow-hidden shadow-lg shadow-blue-100">
-            <MapContainer
-                center={center}
-                zoom={6}
-                scrollWheelZoom={true}
-                style={{ height: "500px", width: "100%" }}
-            >
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {analyses.map((entry) => {
-                    const date = (entry.timestamp as Timestamp).toDate();
-                    const formattedDate = date.toLocaleString(undefined, {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        timeZoneName: "short",
-                    });
+            {userLocation && (
+                <>
+                    <p className="text-center text-slate-700 text-sm mb-4">
+                        This map shows water test results shared anonymously by users around the world. 💡
+                    </p>
 
-                    return (
-                        <Marker key={entry.id} position={entry.location}>
-                            <Popup>
-                                <p className="font-semibold text-blue-800 mb-1">
-                                    💧 Use: {entry.usage.charAt(0).toUpperCase() + entry.usage.slice(1)}
-                                </p>
-                                <ul className="text-sm text-slate-700 list-disc list-inside space-y-1 mb-2">
-                                    {Object.entries(entry.internal_results).map(([param, { status }]) => (
-                                        <li key={param}>
-                                            <strong>
-                                                {param.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
-                                            </strong>
-                                            : {getStatusEmoji(status)} {status.charAt(0).toUpperCase() + status.slice(1)}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <p className="text-xs text-slate-500">📅 {formattedDate}</p>
-                            </Popup>
-                        </Marker>
-                    );
-                })}
-            </MapContainer>
+                    <MapContainer
+                        center={userLocation}
+                        zoom={6}
+                        scrollWheelZoom={true}
+                        style={{ height: "500px", width: "100%" }}
+                    >
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        {analyses.map((entry) => {
+                            const date = (entry.timestamp as Timestamp).toDate();
+                            const formattedDate = date.toLocaleString(undefined, {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                timeZoneName: "short",
+                            });
+
+                            return (
+                                <Marker key={entry.id} position={entry.location}>
+                                    <Popup>
+                                        <p className="font-semibold text-blue-800 mb-1">
+                                            💧 Use: {entry.usage.charAt(0).toUpperCase() + entry.usage.slice(1)}
+                                        </p>
+                                        <ul className="text-sm text-slate-700 list-disc list-inside space-y-1 mb-2">
+                                            {Object.entries(entry.internal_results).map(([param, { status }]) => (
+                                                <li key={param}>
+                                                    <strong>
+                                                        {param.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                                                    </strong>
+                                                    : {getStatusEmoji(status)}{" "}
+                                                    {status.charAt(0).toUpperCase() + status.slice(1)}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <p className="text-xs text-slate-500">📅 {formattedDate}</p>
+                                    </Popup>
+                                </Marker>
+                            );
+                        })}
+                    </MapContainer>
+                </>
+            )}
         </div>
     );
 };

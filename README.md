@@ -43,7 +43,7 @@ AIgua combines:
 | Layer         | Tech                              |
 |---------------|-----------------------------------|
 | Frontend      | React + TypeScript + Vite         |
-| Backend       | Python + LangChain + Flask/FastAPI |
+| Backend       | Python + LangChain + FastAPI |
 | AI Model      | IBM watsonx.ai (Granite model)    |
 | Retrieval     | Custom RAG pipeline with LangChain |
 | Map & DB      | React Leaflet + Firebase Firestore |
@@ -140,7 +140,7 @@ This project is **not open-source** and is shared under a custom license.
 You may use it for personal or educational purposes only, with proper attribution.  
 Commercial use, redistribution, or modification is **not allowed** without permission.
 
-See the [LICENSE](./LICENSE) file for full terms.
+See the [LICENSE](./LICENSE.md) file for full terms.
 
 ---
 
