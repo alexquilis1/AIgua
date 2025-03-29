@@ -1,5 +1,8 @@
+# rules.py
+
 from typing import Dict
 
+# Rules for evaluating each water parameter
 parameter_rules = {
     "pH": {
         "ideal_range": (6.5, 8.5),
@@ -27,6 +30,7 @@ parameter_rules = {
     }
 }
 
+# Internal knowledge base for educational explanations and complementary advice
 knowledge_base = {
     "pH": {
         "explanation": (
@@ -76,11 +80,23 @@ knowledge_base = {
 }
 
 def evaluate_parameter(name: str, value: float) -> Dict[str, str]:
+    """
+    Evaluates a single water parameter based on predefined rules.
+
+    Args:
+        name (str): The name of the water parameter (e.g., "pH", "TDS").
+        value (float): The numeric value of the parameter.
+
+    Returns:
+        dict: A dictionary with 'status' (ideal / acceptable / risky / unknown) and a 'message' explaining the result.
+    """
     rule = parameter_rules.get(name)
     if not rule:
         return {"status": "unknown", "message": "No rules defined."}
+    
     min_ideal, max_ideal = rule["ideal_range"]
     min_acc, max_acc = rule["acceptable_range"]
+
     if min_ideal <= value <= max_ideal:
         return {"status": "ideal", "message": "Within ideal range."}
     elif min_acc <= value <= max_acc:
@@ -89,6 +105,15 @@ def evaluate_parameter(name: str, value: float) -> Dict[str, str]:
         return {"status": "risky", "message": rule["risk"]}
 
 def internal_rule_evaluation(parameters: Dict[str, float]) -> Dict[str, Dict[str, str]]:
+    """
+    Applies rule-based evaluation to all provided water parameters.
+
+    Args:
+        parameters (dict): A dictionary of parameter names and their values.
+
+    Returns:
+        dict: A dictionary mapping each parameter to its evaluation result (status and message).
+    """
     results = {}
     for param, value in parameters.items():
         if param in parameter_rules:
@@ -98,13 +123,31 @@ def internal_rule_evaluation(parameters: Dict[str, float]) -> Dict[str, Dict[str
     return results
 
 def needs_external_info(evaluation_results: Dict[str, Dict[str, str]]) -> bool:
-    # If any parameter is borderline ("acceptable" or "risky"), we need external info.
+    """
+    Determines if additional information should be retrieved (e.g., from RAG or a knowledge base),
+    based on whether any parameters are borderline or risky.
+
+    Args:
+        evaluation_results (dict): The output from internal_rule_evaluation.
+
+    Returns:
+        bool: True if external information is needed; False otherwise.
+    """
     for result in evaluation_results.values():
         if result["status"] in ("acceptable", "risky"):
             return True
     return False
 
 def query_internal_kb(parameter: str) -> dict:
+    """
+    Retrieves detailed information from the internal knowledge base for a given parameter.
+
+    Args:
+        parameter (str): The name of the water parameter.
+
+    Returns:
+        dict: A dictionary containing an explanation, risks, and treatment advice.
+    """
     return knowledge_base.get(parameter, {
         "explanation": "No detailed information available.",
         "risks": [],
