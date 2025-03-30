@@ -136,9 +136,12 @@ This project was developed as part of the **AI Agent Hackathon with IBM watsonx.
 
 ## 📄 License
 
-This project is **not open-source** and is shared under a custom license.  
-You may use it for personal or educational purposes only, with proper attribution.  
-Commercial use, redistribution, or modification is **not allowed** without permission.
+This project is **not open-source** and is shared under a custom license:
+
+- ✅ **Allowed:** Personal or educational use, with proper attribution  
+- 🚫 **Not allowed:** Commercial use, redistribution, or modification without permission
+
+> ⚠️ *Note:* If the project is selected for open-source implementation support through the [Call for Code Global Challenge](https://developer.ibm.com/callforcode), it will be released under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) to support community adoption and real-world deployment.
 
 See the [LICENSE](./LICENSE.md) file for full terms.
 
