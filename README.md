@@ -104,7 +104,7 @@ python main.py
 
 ## 🌐 Live Demo
 
-> Coming soon...
+[![Watch the demo](https://img.youtube.com/vi/kAa69mZ3UZk/maxresdefault.jpg)](https://www.youtube.com/watch?v=kAa69mZ3UZk)
 
 ---
 
@@ -126,10 +126,10 @@ This project was developed as part of the **AI Agent Hackathon with IBM watsonx.
 
 ### 👥 Team
 
-- **Alex Quilis Vila** — Data Science & AI Logic  
+- **Alex Quilis Vila**
   [LinkedIn](https://www.linkedin.com/in/alex-quilis-vila/)
   
-- **Junjie Wu** — AI Integration & Frontend Development  
+- **Junjie Wu**
   [LinkedIn](https://www.linkedin.com/in/junjie-wu-jj/)  
 
 ---
