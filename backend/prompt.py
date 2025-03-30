@@ -41,10 +41,28 @@ prompt_template = """
    - If any values are borderline or risky, you MUST explain why the water is **acceptable but not ideal** or **not recommended at all**.
 
 4. If the water is unsafe:
-   - Clearly explain the **specific risks** (health, environmental, or practical).
-   - Suggest **realistic and affordable** treatment options:
-     • e.g., boiling, activated carbon filters, sediment filters, chlorination, reverse osmosis.
-     • Include preventive advice (e.g., regular testing, maintenance).
+
+   - Clearly explain the **specific risks** associated with the current parameters:
+     • For health (e.g., gastrointestinal issues, skin irritation, chemical exposure)
+     • For environmental or aesthetic impact (e.g., plant damage, bad taste, staining, scratches)
+
+   - Suggest **realistic and affordable treatment options**, clearly adapted to the intended use.
+
+   - Structure your suggestions as a **simple, step-by-step guide** whenever possible. For example:
+
+     💡 Example structure:
+     1. **Boil the water** for at least 1 minute to kill bacteria and viruses.
+     2. **Use a sediment filter** to remove suspended particles and reduce turbidity.
+     3. **Install an activated carbon filter** to improve taste and reduce chemical contaminants.
+     4. **Chlorinate the water** (e.g., with household bleach) if needed, and let it sit.
+     5. **Retest the water** to confirm the treatment was successful.
+
+   - Choose treatments that are suitable for the context (e.g., rural home, outdoor use, agriculture, consumption).
+
+   - Add one **preventive tip** such as:
+     • Regular testing
+     • Cleaning storage containers
+     • Using a backup water source if available
 
 5. Never guess or invent. If unsure, say: “further testing is needed.”
 
