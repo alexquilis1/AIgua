@@ -143,7 +143,7 @@ function App() {
                 </div>
             </main>
 
-            <Footer /> {/* 👈 Aquí añadimos el Footer */}
+            <Footer />
         </div>
     );
 }

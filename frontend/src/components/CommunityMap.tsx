@@ -6,7 +6,7 @@ import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { db } from "../firebase";
 import { SharedAnalysisWithId } from "../types/SharedAnalysisData";
 
-// 🛠 Fix de icono en React Leaflet
+// Icon fix in React Leaflet
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DefaultIconPrototype = L.Icon.Default.prototype as any;
 delete DefaultIconPrototype._getIconUrl;

@@ -1,4 +1,3 @@
-// components/Footer.tsx
 export default function Footer() {
     return (
         <footer className="mt-12 border-t pt-6 pb-4 text-sm text-gray-500">
