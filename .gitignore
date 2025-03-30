@@ -30,5 +30,3 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-/screenshots/
