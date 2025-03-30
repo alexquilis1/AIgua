@@ -2,7 +2,7 @@
 
 AIgua is an AI-powered assistant designed to help people easily understand water quality test results. Whether the water is for drinking, cleaning, or irrigation, AIgua provides clear explanations, risk assessments, and treatment suggestions — all with a human tone.
 
-Built as part of the [AI Agent Hackathon with IBM watsonx.ai](https://developer.ibm.com/events/ai-agent-hackathon/), this project supports the UN’s Sustainable Development Goal **#6: Clean Water and Sanitation**.
+Built as part of the [AI Agent Hackathon with IBM watsonx.ai](https://developer.ibm.com/events/ai-agent-hackathon-with-ibm-watsonx-ai/), this project supports the UN’s Sustainable Development Goal **#6: Clean Water and Sanitation**.
 
 ---
 
