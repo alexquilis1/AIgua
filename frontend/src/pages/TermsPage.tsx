@@ -14,23 +14,23 @@ export default function TermsPage() {
                 <h1 className="text-3xl font-bold text-blue-900 mb-6">Terms of Use</h1>
 
                 <p className="mb-4 text-slate-700">
-                    This website is part of the AI Agent Hackathon with IBM watsonx.ai (March 2025) and is provided for educational and demonstration purposes only.
+                    This website is part of the AI Agent Hackathon with IBM watsonx.ai (March 2025) and is provided for educational and demonstration purposes.
                 </p>
 
                 <ul className="list-disc list-inside space-y-2 text-slate-700 mb-6">
-                    <li>All content is © 2025 Alex Quilis Vila and Junjie Wu. All rights reserved.</li>
-                    <li>You may use this service for personal, non-commercial, and educational purposes only.</li>
-                    <li>Proper attribution is required if you reference or showcase the project.</li>
-                    <li>Commercial use or modification of this project is strictly prohibited.</li>
-                    <li>Use of this platform implies acceptance of these terms and the official hackathon rules.</li>
+                    <li>All content is © 2025 Alex Quilis Vila and Junjie Wu.</li>
+                    <li>This project is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0" className="text-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">Apache License 2.0</a>.</li>
+                    <li>You may use, modify, and distribute this software for personal, educational, or commercial purposes, provided that proper attribution is maintained.</li>
+                    <li>Use of trademarks, logos, or branding elements without permission is not allowed.</li>
+                    <li>By using this platform, you accept the terms of the Apache License and the rules of the AI Agent Hackathon.</li>
                 </ul>
 
                 <p className="text-sm text-gray-500">
-                    For questions or permissions, please contact the authors.
+                    For questions, please refer to the LICENSE file or contact the authors.
                 </p>
 
                 <p className="mt-6 text-xs text-gray-500 italic">
-                    This website and its contents have been created for the AI Agent Hackathon with IBM watsonx.ai. All usage remains subject to the contest's Official Rules and Terms.
+                    This website and its contents have been created for the AI Agent Hackathon with IBM watsonx.ai. The software is open source and distributed under the Apache License 2.0.
                 </p>
             </div>
         </div>
